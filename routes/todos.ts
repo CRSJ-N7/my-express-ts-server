@@ -47,7 +47,7 @@ router.delete('/:id', (req: Request, res: Response) => {
   } else {
     todos.splice(index, 1);
     writeTodos(todos);
-    res.status(204).json({});
+    res.status(204).send();
   }
 });
 
