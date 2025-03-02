@@ -14,7 +14,7 @@ app.use('/public', express.static(staticDirPath));
 app.use('/todos', todosRouter);
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Stay FUCKING calm!' });
+  res.json({ message: 'Stay calm' });
 });
 
 export default app;
