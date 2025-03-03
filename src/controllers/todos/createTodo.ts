@@ -1,15 +1,26 @@
 import { type Request, type Response } from 'express';
-import { readTodos, writeTodos } from '../../db/todosData';
 import { type CreateTodoRequest, type Todo } from '../../types';
+import { readTodos, writeTodos } from '../../db/todosData';
 
-export const createTodo = async (req: Request<unknown, unknown, CreateTodoRequest>, res: Response<Todo>) => {
-  const todos = await readTodos();
-  const newTodo: Todo = {
-    id: crypto.randomUUID(),
-    text: req.body.text.trim(),
-    isCompleted: false,
-  };
-  todos.push(newTodo);
-  await writeTodos(todos);
-  res.status(201).json(newTodo);
+export const createTodo = async (req: Request<unknown, unknown, CreateTodoRequest>, res: Response<Todo | { message: string }>) => {
+  const { text } = req.body;
+  if (!text || typeof text !== 'string' || text.trim() === '') {
+    res.status(400).json({ message: 'Invalid input: text required' });
+    return;
+  }
+
+  try {
+    const todos = await readTodos();
+    const newTodo: Todo = {
+      id: crypto.randomUUID(),
+      text: req.body.text.trim(),
+      isCompleted: false,
+    };
+    todos.push(newTodo);
+    await writeTodos(todos);
+    res.status(201).json(newTodo);
+  } catch (error) {
+    console.error('Error creating todo:', error);
+    res.status(500).json({ message: 'Failed to create todo' });
+  }
 };

@@ -8,11 +8,10 @@ export const deleteTodo = async (req: Request<{id: string}>, res: Response<void 
     const index = todos.findIndex((todo) => todo.id === todoId);
     if (index === -1) {
       res.status(404).json({ message: 'Todo not found' });
-    } else {
-      todos.splice(index, 1);
-      await writeTodos(todos);
-      res.status(204).send();
     }
+    todos.splice(index, 1);
+    await writeTodos(todos);
+    res.status(204).send();
   } catch (error) {
     console.error('Error deleting todo:', error);
     res.status(500).json({ message: 'Failed to delete todo' });

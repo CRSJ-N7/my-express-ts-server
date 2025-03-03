@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { type Todo } from '../types';
 
-const todosFilePath = path.normalize(`${__dirname}/../db/todos.json`);
+const todosFilePath = path.normalize(`${__dirname}/todos.json`);
 
 export const readTodos = async (): Promise<Todo[]> => {
   try {
