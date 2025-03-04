@@ -50,11 +50,13 @@ export const getTodos = async (req: Request<unknown, unknown, unknown, GetTodosQ
     const maxPages = Math.ceil(filteredTodos.length / limitNumber);
 
     res.status(200).json({
-      paginatedTodos,
-      allTodosCount,
-      completedTodosCount,
-      activeTodosCount,
-      maxPages,
+      payload: paginatedTodos,
+      meta: {
+        allTodosCount,
+        completedTodosCount,
+        activeTodosCount,
+        maxPages,
+      },
     });
   } catch (error) {
     console.error('Error fetching todos:', error);

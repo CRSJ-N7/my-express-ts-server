@@ -5,11 +5,13 @@ export type Todo = {
 };
 
 export type TodoData = {
-  paginatedTodos: Todo[];
-  allTodosCount: number;
-  completedTodosCount: number;
-  activeTodosCount: number;
-  maxPages: number;
+  payload: Todo[];
+  meta: {
+    allTodosCount: number;
+    completedTodosCount: number;
+    activeTodosCount: number;
+    maxPages: number;
+  };
 };
 
 export type CreateTodoRequest = {
