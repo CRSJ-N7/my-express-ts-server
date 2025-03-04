@@ -10,7 +10,7 @@ type GetTodosQuery = {
 
 export const getTodos = async (req: Request<unknown, unknown, unknown, GetTodosQuery>, res: Response<TodoData | { message: string}>) => {
   try {
-    const { filter = 'all', page = 1, limit = 5 } = req.query;
+    const { filter, page, limit } = req.query;
 
     if (!filter || !page || !limit) {
       res.status(400).json({ message: 'Missing filter, page, or limit parameters' });
