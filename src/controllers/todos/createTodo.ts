@@ -11,9 +11,10 @@ export const createTodo = async (req: Request<unknown, unknown, CreateTodoReques
 
   try {
     const todos = await readTodos();
+    const trimmedText = req.body.text.replace(/\s+/g, ' ').trim();
     const newTodo: Todo = {
       id: crypto.randomUUID(),
-      text: req.body.text.trim(),
+      text: trimmedText,
       isCompleted: false,
     };
     todos.push(newTodo);
