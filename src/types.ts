@@ -13,7 +13,3 @@ export type TodoData = {
     maxPages: number;
   };
 };
-
-export type CreateTodoRequest = {
-  text: string;
-};

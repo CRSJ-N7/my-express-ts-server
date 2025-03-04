@@ -1,8 +1,8 @@
 import { type Request, type Response } from 'express';
-import { type CreateTodoRequest, type Todo } from '../../types';
+import { type Todo } from '../../types';
 import { readTodos, writeTodos } from '../../db/todosData';
 
-export const createTodo = async (req: Request<unknown, unknown, CreateTodoRequest>, res: Response<Todo | { message: string }>) => {
+export const createTodo = async (req: Request<unknown, unknown, { text: string }>, res: Response<Todo | { message: string }>) => {
   const { text } = req.body;
   if (!text || typeof text !== 'string' || text.trim() === '') {
     res.status(400).json({ message: 'Invalid input: text required' });
@@ -11,7 +11,7 @@ export const createTodo = async (req: Request<unknown, unknown, CreateTodoReques
 
   try {
     const todos = await readTodos();
-    const trimmedText = req.body.text.replace(/\s+/g, ' ').trim();
+    const trimmedText = req.body.text.replace(/\s+/g, ' ').trim(); // 👹
     const newTodo: Todo = {
       id: crypto.randomUUID(),
       text: trimmedText,
