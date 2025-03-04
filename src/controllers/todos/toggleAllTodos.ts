@@ -9,7 +9,6 @@ export const toggleAllTodos = async (req: Request, res: Response<void | { messag
       ...todo,
       isCompleted: !hasCompletedTasks,
     }));
-
     await writeTodos(updatedTodos);
     res.status(204).send();
   } catch (error) {
